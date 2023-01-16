@@ -11,6 +11,7 @@ export default function TypeArea(props) {
   ];
   const paragraphToType = props.paraContent;
   const wordList = props.wordList;
+  const [textAreaDisabled,setTextAreaDisabled]=useState(false);
   const [wordIndex, setwordIndex] = useState(0);
   const [formedCurWord, setFormedCurWord] = useState("");
   const [totalKeysPressed, setTotalKeysPressed] = useState(0);
@@ -59,6 +60,7 @@ export default function TypeArea(props) {
     const interval = setInterval(() => {
       setTestInfo((preVal) => {
         if (MAX_TIME - preVal.timeElapsed == 0) {
+          setTextAreaDisabled(true)
           clearInterval(interval); return preVal;
           // return clearInterval(interval);
         }
@@ -152,6 +154,7 @@ export default function TypeArea(props) {
         onChange={changeHandler}
         onKeyDown={keyDownHandler}
         value={formedCurWord}
+        disabled={textAreaDisabled}
       ></textarea>
       <p>
         <span>{testInfo ? testInfo.WPM : 0}</span>
