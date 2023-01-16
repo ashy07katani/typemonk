@@ -59,7 +59,8 @@ export default function TypeArea(props) {
     const interval = setInterval(() => {
       setTestInfo((preVal) => {
         if (MAX_TIME - preVal.timeElapsed == 0) {
-          return clearInterval(interval);
+          clearInterval(interval); return preVal;
+          // return clearInterval(interval);
         }
         return {
           ...preVal,
@@ -83,69 +84,63 @@ export default function TypeArea(props) {
   const keyDownHandler = (event) => {
     let curLetter = "";
     let curtestInfo = {};
-    setTestInfo((preVal) => {
-      if (event.keyCode === 32) {
-        if (matchFound(formedCurWord, wordList[wordIndex])) {
-          setFormedCurWord("");
-          // setTotalKeysPressed((preVal)=>{return preVal+1});
-          setTestInfo((preVal) => {
-            return {
-              ...preVal,
-              totalKeysPressed: preVal["totalKeysPressed"] + 1,
-            };
-          });
-          setwordIndex((preVal) => {
-            return preVal + 1;
-          });
-          curLetter = " ";
-          console.log("space pressed: ", formedCurWord);
-          console.log("space pressed: ", preVal["paragraphFormed"]);
-          return {
-            ...preVal,
-            paragraphFormed: preVal["paragraphFormed"].concat(curLetter),
-          };
-        }
-      } else if (event.keyCode === 8) {
-        console.log("backspace pressed");
-        setFormedCurWord((preVal) => {
-          return preVal.slice(0, -1);
-        });
-        curLetter = "";
-        if (formedCurWord !== "") {
-          return {
-            ...preVal,
-            paragraphFormed: preVal["paragraphFormed"].slice(0, -1),
-          };
-        } else {
-          console.log("backspace pressed: ", formedCurWord);
-        }
-      } else if (allowedKey.includes(event.keyCode)) {
-        console.log("you know a valid key is pressed");
+    if (event.keyCode === 32) {
+      if (matchFound(formedCurWord, wordList[wordIndex])) {
+        curLetter = " ";
+        setFormedCurWord("");
         setTestInfo((preVal) => {
           return {
             ...preVal,
             totalKeysPressed: preVal["totalKeysPressed"] + 1,
           };
         });
-        setTotalKeysPressed((preVal) => {
+        setwordIndex((preVal) => {
           return preVal + 1;
         });
-        curLetter = event.key;
-        setFormedCurWord((preVal) => {
-          return preVal.concat(curLetter);
+        setTestInfo((preVal) => {
+          return {
+            ...preVal,
+            paragraphFormed: preVal["paragraphFormed"].concat(curLetter),
+          };
         });
-        return {
-          ...preVal,
-          paragraphFormed: preVal["paragraphFormed"].concat(curLetter),
-        };
       }
+    }
+    else if(event.keyCode === 8)
+    {
+        setFormedCurWord((preVal) => {
+          return preVal.slice(0, -1);
+        });
+        setTestInfo((preVal) => {
+          return {
+            ...preVal,
+            paragraphFormed: preVal["paragraphFormed"].slice(0, -1),
+          };
+        });
+    }
 
-      return {
-        ...preVal,
-        paragraphFormed: preVal["paragraphFormed"].concat(curLetter),
-      };
-    });
-  };
+    else if (allowedKey.includes(event.keyCode)) {
+          console.log("you know a valid key is pressed");
+          setTestInfo((preVal) => {
+            return {
+              ...preVal,
+              totalKeysPressed: preVal["totalKeysPressed"] + 1,
+            };
+          });
+          setTotalKeysPressed((preVal) => {
+            return preVal + 1;
+          });
+          curLetter = event.key;
+          setFormedCurWord((preVal) => {
+            return preVal.concat(curLetter);
+          });
+          setTestInfo((preVal) => {
+            return {
+              ...preVal,
+              paragraphFormed: preVal["paragraphFormed"].concat(curLetter),
+            };
+          });
+    }
+  }
 
   return (
     <>
@@ -159,11 +154,11 @@ export default function TypeArea(props) {
         value={formedCurWord}
       ></textarea>
       <p>
-        <span>{testInfo?testInfo.WPM:0}</span>
+        <span>{testInfo ? testInfo.WPM : 0}</span>
         <span> </span>
-        <span>{testInfo?testInfo.accuracy:0}</span>
+        <span>{testInfo ? testInfo.accuracy : 0}</span>
         <span> </span>
-        <span>{testInfo?MAX_TIME - testInfo.timeElapsed:0}</span>
+        <span>{testInfo ? MAX_TIME - testInfo.timeElapsed : 0}</span>
       </p>
     </>
   );
