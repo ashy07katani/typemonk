@@ -59,7 +59,8 @@ export default function TypeArea(props) {
     const interval = setInterval(() => {
       setTestInfo((preVal) => {
         if (MAX_TIME - preVal.timeElapsed == 0) {
-          return clearInterval(interval);
+          clearInterval(interval); return preVal;
+          // return clearInterval(interval);
         }
         return {
           ...preVal,
