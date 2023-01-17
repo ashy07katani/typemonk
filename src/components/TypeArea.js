@@ -56,8 +56,9 @@ export default function TypeArea(props) {
     return expected === original;
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+ const startTimer = ()=>{
+  console.log("inside start timer")
+  const interval = setInterval(() => {
       setTestInfo((preVal) => {
         if (MAX_TIME - preVal.timeElapsed == 0) {
           setTextAreaDisabled(true)
@@ -75,7 +76,27 @@ export default function TypeArea(props) {
         };
       });
     }, 1000);
-  }, []);
+ }
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setTestInfo((preVal) => {
+  //       if (MAX_TIME - preVal.timeElapsed == 0) {
+  //         setTextAreaDisabled(true)
+  //         clearInterval(interval); return preVal;
+  //         // return clearInterval(interval);
+  //       }
+  //       return {
+  //         ...preVal,
+  //         timeElapsed: preVal["timeElapsed"] + 1,
+  //         WPM: calculateWPM(preVal.paragraphFormed, preVal.timeElapsed),
+  //         accuracy: calculateAccuracy(
+  //           preVal.totalKeysPressed,
+  //           preVal.paragraphFormed.length
+  //         ),
+  //       };
+  //     });
+  //   }, 1000);
+  // }, []);
 
   //THIS IS A CHANGE HANDLER
   const changeHandler = (event) => {
@@ -85,7 +106,9 @@ export default function TypeArea(props) {
   //THIS IS A KEY DOWN HANDLER
   const keyDownHandler = (event) => {
     let curLetter = "";
-    let curtestInfo = {};
+    console.log("inside KeyDownHandler")
+    
+    
     if (event.keyCode === 32) {
       if (matchFound(formedCurWord, wordList[wordIndex])) {
         curLetter = " ";
@@ -142,6 +165,12 @@ export default function TypeArea(props) {
             };
           });
     }
+    //CHECK IF THIS IS THE FIRST KEY PRESSED. IF YES START THE TIMER.
+    if(testInfo.totalKeysPressed===1)
+    {
+      console.log("inside KeyDownHandler for first time")
+      startTimer();
+    }
   }
 
   return (
@@ -157,11 +186,11 @@ export default function TypeArea(props) {
         disabled={textAreaDisabled}
       ></textarea>
       <p>
-        <span>{testInfo ? testInfo.WPM : 0}</span>
+        <span>WPM: {testInfo ? testInfo.WPM : 0}</span>
         <span> </span>
-        <span>{testInfo ? testInfo.accuracy : 0}</span>
+        <span>Accuracy: {testInfo ? testInfo.accuracy : 0}</span>
         <span> </span>
-        <span>{testInfo ? MAX_TIME - testInfo.timeElapsed : 0}</span>
+        <span>timeElaspsed: {testInfo ? MAX_TIME - testInfo.timeElapsed : 0}</span>
       </p>
     </>
   );
