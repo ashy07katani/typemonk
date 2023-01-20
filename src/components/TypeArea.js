@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import style from "./TypeArea.module.css";
 export default function TypeArea(props) {
   const MAX_TIME = 40;
   const allowedKey = [
@@ -15,6 +15,7 @@ export default function TypeArea(props) {
   const [wordIndex, setwordIndex] = useState(0);
   const [formedCurWord, setFormedCurWord] = useState("");
   const [totalKeysPressed, setTotalKeysPressed] = useState(0);
+  const [wrongClass,setWrongClass]= useState("")
   const [testInfo, setTestInfo] = useState({
     timeElapsed: 0,
     paragraphFormed: "",
@@ -25,39 +26,44 @@ export default function TypeArea(props) {
 
   //FUNCTION TO CALCULATE WPM
   const calculateAccuracy = (totalKeyPressed, correctKeyPressed) => {
-    console.log(
-      "accuracy calculating",
-      totalKeyPressed,
-      correctKeyPressed,
-      correctKeyPressed / totalKeyPressed,
-      Math.round(correctKeyPressed / totalKeyPressed)
-    );
+    // console.log(
+    //   "accuracy calculating",
+    //   totalKeyPressed,
+    //   correctKeyPressed,
+    //   correctKeyPressed / totalKeyPressed,
+    //   Math.round(correctKeyPressed / totalKeyPressed)
+    // );
     if (totalKeyPressed == 0) {
       return 0;
     }
     return (correctKeyPressed / totalKeyPressed).toFixed(2) * 100;
   };
   const calculateWPM = (content, timeElapsed) => {
-    console.log("content: ", content);
+    // console.log("content: ", content);
     if (content.length == 0) {
       return 0;
     }
     let Total_Keys_Pressed = content.length;
-    console.log("Correct keys pressed so far : ", Total_Keys_Pressed);
+    // console.log("Correct keys pressed so far : ", Total_Keys_Pressed);
     let Total_Number_of_Words = Total_Keys_Pressed / 5;
-    console.log("Correct words so far : ", Total_Number_of_Words);
+    // console.log("Correct words so far : ", Total_Number_of_Words);
     let Time_Elapsed_in_Minutes = timeElapsed / 60;
-    console.log("Time Elapsed so far : ", Time_Elapsed_in_Minutes);
+    // console.log("Time Elapsed so far : ", Time_Elapsed_in_Minutes);
     let WPM = Math.ceil(Total_Number_of_Words / Time_Elapsed_in_Minutes);
-    console.log("Current WPM : ", WPM);
+    // console.log("Current WPM : ", WPM);
     return WPM;
   };
   const matchFound = (expected, original) => {
+    if(expected === original)
+      setFormedCurWord("");
+    else{
+        setWrongClass(style.wrong);
+      }
     return expected === original;
   };
 
  const startTimer = ()=>{
-  console.log("inside start timer")
+  // console.log("inside start timer")
   const interval = setInterval(() => {
       setTestInfo((preVal) => {
         if (MAX_TIME - preVal.timeElapsed == 0) {
@@ -106,13 +112,14 @@ export default function TypeArea(props) {
   //THIS IS A KEY DOWN HANDLER
   const keyDownHandler = (event) => {
     let curLetter = "";
-    console.log("inside KeyDownHandler")
+    // console.log("inside KeyDownHandler")
     
     
     if (event.keyCode === 32) {
       if (matchFound(formedCurWord, wordList[wordIndex])) {
+        setWrongClass("")
         curLetter = " ";
-        setFormedCurWord("");
+        props.incWordIndex();
         setTestInfo((preVal) => {
           return {
             ...preVal,
@@ -144,7 +151,7 @@ export default function TypeArea(props) {
     }
 
     else if (allowedKey.includes(event.keyCode)) {
-          console.log("you know a valid key is pressed");
+          // console.log("you know a valid key is pressed");
           setTestInfo((preVal) => {
             return {
               ...preVal,
@@ -168,9 +175,10 @@ export default function TypeArea(props) {
     //CHECK IF THIS IS THE FIRST KEY PRESSED. IF YES START THE TIMER.
     if(testInfo.totalKeysPressed===1)
     {
-      console.log("inside KeyDownHandler for first time")
+      // console.log("inside KeyDownHandler for first time")
       startTimer();
     }
+    
   }
 
   return (
@@ -184,6 +192,7 @@ export default function TypeArea(props) {
         onKeyDown={keyDownHandler}
         value={formedCurWord}
         disabled={textAreaDisabled}
+        className={wrongClass}
       ></textarea>
       <p>
         <span>WPM: {testInfo ? testInfo.WPM : 0}</span>

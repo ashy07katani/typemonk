@@ -1,0 +1,11 @@
+.current{
+    color : black;
+    font-weight: bold;
+}
+.otherwise{
+    color:gray;
+}
+.correct{
+    color : rgb(11, 239, 11);
+    font-weight: 500;
+}
