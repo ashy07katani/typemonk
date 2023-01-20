@@ -180,7 +180,7 @@ export default function TypeArea(props) {
     }
     
   }
-
+//style.TypeArea+" "+
   return (
     <>
       <textarea
@@ -192,14 +192,14 @@ export default function TypeArea(props) {
         onKeyDown={keyDownHandler}
         value={formedCurWord}
         disabled={textAreaDisabled}
-        className={wrongClass}
+        className={wrongClass+" "+ style.TypeArea}
       ></textarea>
       <p>
         <span>WPM: {testInfo ? testInfo.WPM : 0}</span>
         <span> </span>
         <span>Accuracy: {testInfo ? testInfo.accuracy : 0}</span>
         <span> </span>
-        <span>timeElaspsed: {testInfo ? MAX_TIME - testInfo.timeElapsed : 0}</span>
+        <span>Time Elaspsed: {testInfo ? MAX_TIME - testInfo.timeElapsed : 0}</span>
       </p>
     </>
   );

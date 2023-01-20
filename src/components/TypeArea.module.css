@@ -1,3 +1,22 @@
 .wrong{
-    background-color: rgba(244, 10, 10, 0.566);
+    background-color: #d08383;
+}
+.TypeArea{
+    width:96%;
+    margin-top: 2%;
+    color: black;
+    outline: none;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.808);
+    padding: 2%;
+    font-size: 1rem;
+    font-weight:400 ;
+}
+textarea:focus{
+    outline: none;
+}
+p{
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-between;
 }

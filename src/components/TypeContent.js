@@ -1,4 +1,5 @@
 import React from "react";
+import Card from "./Card";
 import style from "./TypeContent.module.css"
 export default function TypeContent(props) {
   // console.log("INSIDE TYPECONTENT", props.wordList);
@@ -10,7 +11,7 @@ export default function TypeContent(props) {
   // }
   return (
     // <div>{props.wordList}</div>
-    <div>
+    <Card className={style.TypeContent}>
       {wordList.map((word,id) => {
         console.log("inside map: ",word,id,props.activeWord);
         if(id==props.activeWord)
@@ -46,6 +47,6 @@ export default function TypeContent(props) {
         //   </span>
         // );
       })}
-    </div>
+    </Card>
   );
 }
