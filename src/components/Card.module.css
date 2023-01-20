@@ -1,0 +1,7 @@
+.card {
+        /* Add shadows to create the "card" effect */
+        border-radius: 12px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+        padding: 2%;
+        background-color: #363636
+      }

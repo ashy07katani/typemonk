@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import TypeContent from "./TypeContent";
 import TypeArea from "./TypeArea";
 import paraList from "./ParagraphList";
+import Card from "./Card";
+import style from "./TypeContainer.module.css"
 export default function TypeContainer() {
   const MAX_TIME = 60;
   const index = Math.floor(Math.random() * (paraList.length + 1));
@@ -21,7 +23,7 @@ export default function TypeContainer() {
     )
   }
   return (
-    <>
+    <Card className={style.TypeContainer}>
       <TypeContent paraContent={paragraphToType} wordList={wordList} activeWord={activeWord}></TypeContent>
       <TypeArea
         paraContent={paragraphToType}
@@ -30,6 +32,6 @@ export default function TypeContainer() {
         wordChecker={wordChecker}
         incWordIndex={incWordIndex}
       ></TypeArea>
-    </>
+    </Card>
   );
 }
