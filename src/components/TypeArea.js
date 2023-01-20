@@ -68,6 +68,7 @@ export default function TypeArea(props) {
       setTestInfo((preVal) => {
         if (MAX_TIME - preVal.timeElapsed == 0) {
           setTextAreaDisabled(true)
+          setWrongClass("");
           clearInterval(interval); return preVal;
           // return clearInterval(interval);
         }
