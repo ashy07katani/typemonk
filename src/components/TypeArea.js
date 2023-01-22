@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Modal from "./Modal";
 import style from "./TypeArea.module.css";
 export default function TypeArea(props) {
-  const MAX_TIME = 40;
+  const MAX_TIME = 10;
   const allowedKey = [
     32, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 65, 66, 67, 68,
     69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
@@ -12,6 +13,7 @@ export default function TypeArea(props) {
   const paragraphToType = props.paraContent;
   const wordList = props.wordList;
   const [textAreaDisabled,setTextAreaDisabled]=useState(false);
+  const [isOver,setIsOver]=useState(false);
   const [wordIndex, setwordIndex] = useState(0);
   const [formedCurWord, setFormedCurWord] = useState("");
   const [totalKeysPressed, setTotalKeysPressed] = useState(0);
@@ -67,6 +69,7 @@ export default function TypeArea(props) {
   const interval = setInterval(() => {
       setTestInfo((preVal) => {
         if (MAX_TIME - preVal.timeElapsed == 0) {
+          setIsOver(true);
           setTextAreaDisabled(true)
           setWrongClass("");
           clearInterval(interval); return preVal;
@@ -84,26 +87,24 @@ export default function TypeArea(props) {
       });
     }, 1000);
  }
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setTestInfo((preVal) => {
-  //       if (MAX_TIME - preVal.timeElapsed == 0) {
-  //         setTextAreaDisabled(true)
-  //         clearInterval(interval); return preVal;
-  //         // return clearInterval(interval);
-  //       }
-  //       return {
-  //         ...preVal,
-  //         timeElapsed: preVal["timeElapsed"] + 1,
-  //         WPM: calculateWPM(preVal.paragraphFormed, preVal.timeElapsed),
-  //         accuracy: calculateAccuracy(
-  //           preVal.totalKeysPressed,
-  //           preVal.paragraphFormed.length
-  //         ),
-  //       };
-  //     });
-  //   }, 1000);
-  // }, []);
+
+ const tryAgain=()=>
+    {
+        props.tryAgain()
+        setTestInfo(({
+          timeElapsed: 0,
+          paragraphFormed: "",
+          totalKeysPressed: 0,
+          WPM: 0,
+          accuracy: 0,
+        }))
+        setWrongClass("")
+        setTextAreaDisabled(false);
+        setIsOver(false);
+        setwordIndex(0);
+        setFormedCurWord("");
+        setTotalKeysPressed(0);
+    }
 
   //THIS IS A CHANGE HANDLER
   const changeHandler = (event) => {
@@ -184,6 +185,7 @@ export default function TypeArea(props) {
 //style.TypeArea+" "+
   return (
     <>
+      {isOver && <Modal tryAgain={tryAgain}/>}
       <textarea
         name=""
         id=""
