@@ -1,4 +1,51 @@
-.modal
-{
-    background-color: rgba(255, 255, 255, 0.518);
+.modal {
+    position: fixed;
+    top: 30vh;
+    left: 10%;
+    width: 80%;
+    z-index: 100;
+    overflow: hidden;
+    animation: fadeInAnimation ease 0.7s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+.button-container{
+    margin-left:83%;
+}
+button{
+    background-color: transparent;
+    border-radius : 50%;
+    border: none;
+    margin-left: 5%;
+}
+button :hover{
+    cursor: pointer;
+}
+button svg{
+    width: 2rem;
+    height: 2rem;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.75);
+    animation: fadeInAnimation ease 0.7s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
+
+
+  @keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
 }

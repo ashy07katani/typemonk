@@ -22,6 +22,11 @@ export default function TypeContainer() {
     }
     )
   }
+  const tryAgain=()=>{
+    const newIndex = Math.floor(Math.random() * (paraList.length + 1));
+    setParagraphToType(paraList[newIndex])
+    setActiveWord(0)
+  }
   return (
     <Card className={style.TypeContainer}>
       <TypeContent paraContent={paragraphToType} wordList={wordList} activeWord={activeWord}></TypeContent>
@@ -31,6 +36,7 @@ export default function TypeContainer() {
         wordList={wordList}
         wordChecker={wordChecker}
         incWordIndex={incWordIndex}
+        tryAgain={tryAgain}
       ></TypeArea>
     </Card>
   );
