@@ -117,6 +117,8 @@ export default function TypeArea(props) {
           totalKeysPressed: 0,
           WPM: 0,
           accuracy: 0,
+          wpmArray:[],
+          rawArray:[]
         }))
         setWrongClass("")
         setTextAreaDisabled(false);
