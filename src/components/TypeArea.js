@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 import style from "./TypeArea.module.css";
 export default function TypeArea(props) {
-  const MAX_TIME = 10;
+  const MAX_TIME = 40;
   const allowedKey = [
     32, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 65, 66, 67, 68,
     69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
@@ -18,12 +18,16 @@ export default function TypeArea(props) {
   const [formedCurWord, setFormedCurWord] = useState("");
   const [totalKeysPressed, setTotalKeysPressed] = useState(0);
   const [wrongClass,setWrongClass]= useState("")
+  const [wpmArray,setWpmArray]=useState([])
+  const [rawArray,setRawArray]=useState([])
   const [testInfo, setTestInfo] = useState({
     timeElapsed: 0,
     paragraphFormed: "",
     totalKeysPressed: 0,
     WPM: 0,
     accuracy: 0,
+    wpmArray:[],
+    rawArray:[]
   });
 
   //FUNCTION TO CALCULATE WPM
@@ -42,7 +46,7 @@ export default function TypeArea(props) {
   };
   const calculateWPM = (content, timeElapsed) => {
     // console.log("content: ", content);
-    if (content.length == 0) {
+    if (content.length === 0|| timeElapsed===0) {
       return 0;
     }
     let Total_Keys_Pressed = content.length;
@@ -55,6 +59,20 @@ export default function TypeArea(props) {
     // console.log("Current WPM : ", WPM);
     return WPM;
   };
+  const calculateRAW=(Total_Keys_Pressed,timeElapsed)=>
+  {
+    if(timeElapsed===0)
+    {
+      return 0;
+    }
+    let Total_Number_of_Words = Total_Keys_Pressed / 5;
+    // console.log("Correct words so far : ", Total_Number_of_Words);
+    let Time_Elapsed_in_Minutes = timeElapsed / 60;
+    // console.log("Time Elapsed so far : ", Time_Elapsed_in_Minutes);
+    let RAW = Math.ceil(Total_Number_of_Words / Time_Elapsed_in_Minutes);
+    // console.log("Current WPM : ", WPM);
+    return RAW;
+  }
   const matchFound = (expected, original) => {
     if(expected === original)
       setFormedCurWord("");
@@ -79,6 +97,8 @@ export default function TypeArea(props) {
           ...preVal,
           timeElapsed: preVal["timeElapsed"] + 1,
           WPM: calculateWPM(preVal.paragraphFormed, preVal.timeElapsed),
+          wpmArray: [...preVal["wpmArray"],calculateWPM(preVal.paragraphFormed, preVal.timeElapsed)],
+          rawArray:[...preVal["rawArray"],calculateRAW(preVal.totalKeysPressed,preVal.timeElapsed)],
           accuracy: calculateAccuracy(
             preVal.totalKeysPressed,
             preVal.paragraphFormed.length
@@ -97,6 +117,8 @@ export default function TypeArea(props) {
           totalKeysPressed: 0,
           WPM: 0,
           accuracy: 0,
+          wpmArray:[],
+          rawArray:[]
         }))
         setWrongClass("")
         setTextAreaDisabled(false);
@@ -185,7 +207,7 @@ export default function TypeArea(props) {
 //style.TypeArea+" "+
   return (
     <>
-      {isOver && <Modal tryAgain={tryAgain}/>}
+      {isOver && <Modal tryAgain={tryAgain} wpmArray={testInfo.wpmArray} rawArray={testInfo.rawArray} accuracy={testInfo.accuracy} wpm={testInfo.WPM}/>}
       <textarea
         name=""
         id=""

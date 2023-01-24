@@ -1,7 +1,7 @@
 .modal {
     position: fixed;
-    top: 30vh;
-    left: 10%;
+    top: 4vh;
+    left: 5%;
     width: 80%;
     z-index: 100;
     overflow: hidden;
@@ -9,18 +9,60 @@
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
+.description{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    align-items: center;
+    font-weight: bolder;
+    text-shadow: 5px 4px rgb(35, 34, 34);
+}
+.description-content
+{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+    height:40%;
+    justify-content: center;
+}
+.description-content .number
+{
+    font-size: 4em;
+}
+.description-content .label
+{
+    font-size: 1em;
+}
+.typeChart-container{
+    display: flex;
+    justify-content: space-evenly;
+}
 .button-container{
-    margin-left:83%;
+    display: flex ;
+    justify-content: space-evenly;
+    margin-left:77%;
+    margin-top: 3%;
+    width: 10%;
+    
 }
 button{
     background-color: transparent;
     border-radius : 50%;
     border: none;
     margin-left: 5%;
+    padding:4px
 }
 button :hover{
     cursor: pointer;
+    border-radius : 50%;
+    background-color: rgba(0, 251, 255, 0.45);
+    transition:background-color 1s;
+    transform:translateY(0.5px);
+    transition-timing-function: ease-in-out ;
 }
+
 button svg{
     width: 2rem;
     height: 2rem;
