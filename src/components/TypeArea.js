@@ -163,6 +163,10 @@ export default function TypeArea(props) {
     }
     else if(event.keyCode === 8)
     {
+        if(wrongClass!=="")
+        {
+          setWrongClass("")
+        }
         setFormedCurWord((preVal) => {
           return preVal.slice(0, -1);
         });
