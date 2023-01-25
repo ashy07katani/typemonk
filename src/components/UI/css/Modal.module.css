@@ -30,11 +30,11 @@
 }
 .description-content .number
 {
-    font-size: 4em;
+    font-size: 5.3vw;
 }
 .description-content .label
 {
-    font-size: 1em;
+    font-size: 2vw;
 }
 .typeChart-container{
     display: flex;
@@ -53,20 +53,20 @@ button{
     border-radius : 50%;
     border: none;
     margin-left: 5%;
-    padding:4px
+    padding:4px;
 }
 button :hover{
     cursor: pointer;
     border-radius : 50%;
-    background-color: rgba(0, 251, 255, 0.45);
+    background-color: rgba(0, 251, 255, 0.584);
     transition:background-color 1s;
     transform:translateY(0.5px);
     transition-timing-function: ease-in-out ;
 }
 
 button svg{
-    width: 2rem;
-    height: 2rem;
+    width: 5vw;
+    height: 5vw;
 }
 
 .backdrop {
