@@ -192,7 +192,7 @@ export default function TypeArea(props) {
         name=""
         id=""
         cols="150"
-        rows="10"
+        rows="2"
         onChange={changeHandler}
         onKeyDown={keyDownHandler}
         value={formedCurWord}

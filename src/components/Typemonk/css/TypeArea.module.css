@@ -10,7 +10,7 @@
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.808);
     padding: 2%;
     font-size: 1rem;
-    font-weight:400 ;
+    font-weight:500 ;
 }
 textarea:focus{
     outline: none;
@@ -19,4 +19,15 @@ p{
     font-weight: bolder;
     display: flex;
     justify-content: space-between;
+}
+p span{
+    margin-left:3px;
+}
+@media all and (max-width :600px)
+{
+    p{flex-direction: column; 
+    }
+    p span{
+        margin-top: 5px;
+    }
 }
