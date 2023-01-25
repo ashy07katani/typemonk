@@ -1,10 +1,9 @@
 import React from "react";
-import style from "./Modal.module.css";
+import style from "../css/Modal.module.css";
 import Card from "./Card";
-import restartButton from "../Images/icons8-restart.svg";
-import backButton from "../Images/Back.svg";
+import restartButton from "../../../Images/icons8-restart.svg"
 import { ReactSVG } from "react-svg";
-import TypeChart from "./TypeChart";
+import TypeChart from "../../Typemonk/components/TypeChart";
 export default function Modal(props) {
   const tryAgainHandler = () => {
     props.tryAgain();
@@ -32,9 +31,6 @@ export default function Modal(props) {
           <Card className={style["button-container"]}>
             <button onClick={tryAgainHandler}>
               <ReactSVG src={restartButton} />
-            </button>
-            <button onClick={tryAgainHandler}>
-              <ReactSVG src={backButton} />
             </button>
           </Card>
         </div>

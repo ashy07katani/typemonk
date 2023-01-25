@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import TypeContent from "./TypeContent";
 import TypeArea from "./TypeArea";
 import paraList from "./ParagraphList";
-import Card from "./Card";
-import style from "./TypeContainer.module.css"
+import Card from "../../UI/components/Card";
+import style from "../css/TypeContainer.module.css"
 export default function TypeContainer() {
   const MAX_TIME = 60;
   const index = Math.floor(Math.random() * (paraList.length + 1));

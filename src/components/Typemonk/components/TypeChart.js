@@ -1,8 +1,8 @@
 import React from 'react'
 import {Line} from 'react-chartjs-2'
 import { Chart as ChartJS, registerables } from 'chart.js';
-import Card from './Card'
-import styles from './TypeChart.module.css'
+import Card from '../../UI/components/Card'
+import styles from '../css/TypeChart.module.css'
 export default function TypeChart(props) {
     let chartLabel = props.wpmArray.map((element,idx)=>{
       return idx
