@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Modal from "./Modal";
-import style from "./TypeArea.module.css";
+import Modal from "../../UI/components/Modal";
+import style from "../css/TypeArea.module.css";
 export default function TypeArea(props) {
   const MAX_TIME = 40;
   const allowedKey = [
@@ -10,7 +10,6 @@ export default function TypeArea(props) {
     199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213,
     214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 173,
   ];
-  const paragraphToType = props.paraContent;
   const wordList = props.wordList;
   const [textAreaDisabled,setTextAreaDisabled]=useState(false);
   const [isOver,setIsOver]=useState(false);
@@ -18,8 +17,6 @@ export default function TypeArea(props) {
   const [formedCurWord, setFormedCurWord] = useState("");
   const [totalKeysPressed, setTotalKeysPressed] = useState(0);
   const [wrongClass,setWrongClass]= useState("")
-  const [wpmArray,setWpmArray]=useState([])
-  const [rawArray,setRawArray]=useState([])
   const [testInfo, setTestInfo] = useState({
     timeElapsed: 0,
     paragraphFormed: "",
@@ -32,31 +29,19 @@ export default function TypeArea(props) {
 
   //FUNCTION TO CALCULATE WPM
   const calculateAccuracy = (totalKeyPressed, correctKeyPressed) => {
-    // console.log(
-    //   "accuracy calculating",
-    //   totalKeyPressed,
-    //   correctKeyPressed,
-    //   correctKeyPressed / totalKeyPressed,
-    //   Math.round(correctKeyPressed / totalKeyPressed)
-    // );
     if (totalKeyPressed == 0) {
       return 0;
     }
     return (correctKeyPressed / totalKeyPressed).toFixed(2) * 100;
   };
   const calculateWPM = (content, timeElapsed) => {
-    // console.log("content: ", content);
     if (content.length === 0|| timeElapsed===0) {
       return 0;
     }
     let Total_Keys_Pressed = content.length;
-    // console.log("Correct keys pressed so far : ", Total_Keys_Pressed);
     let Total_Number_of_Words = Total_Keys_Pressed / 5;
-    // console.log("Correct words so far : ", Total_Number_of_Words);
     let Time_Elapsed_in_Minutes = timeElapsed / 60;
-    // console.log("Time Elapsed so far : ", Time_Elapsed_in_Minutes);
     let WPM = Math.ceil(Total_Number_of_Words / Time_Elapsed_in_Minutes);
-    // console.log("Current WPM : ", WPM);
     return WPM;
   };
   const calculateRAW=(Total_Keys_Pressed,timeElapsed)=>
@@ -66,11 +51,8 @@ export default function TypeArea(props) {
       return 0;
     }
     let Total_Number_of_Words = Total_Keys_Pressed / 5;
-    // console.log("Correct words so far : ", Total_Number_of_Words);
     let Time_Elapsed_in_Minutes = timeElapsed / 60;
-    // console.log("Time Elapsed so far : ", Time_Elapsed_in_Minutes);
     let RAW = Math.ceil(Total_Number_of_Words / Time_Elapsed_in_Minutes);
-    // console.log("Current WPM : ", WPM);
     return RAW;
   }
   const matchFound = (expected, original) => {
@@ -83,7 +65,6 @@ export default function TypeArea(props) {
   };
 
  const startTimer = ()=>{
-  // console.log("inside start timer")
   const interval = setInterval(() => {
       setTestInfo((preVal) => {
         if (MAX_TIME - preVal.timeElapsed == 0) {
@@ -136,9 +117,7 @@ export default function TypeArea(props) {
   //THIS IS A KEY DOWN HANDLER
   const keyDownHandler = (event) => {
     let curLetter = "";
-    // console.log("inside KeyDownHandler")
-    
-    
+  
     if (event.keyCode === 32) {
       if (matchFound(formedCurWord, wordList[wordIndex])) {
         setWrongClass("")
@@ -179,7 +158,6 @@ export default function TypeArea(props) {
     }
 
     else if (allowedKey.includes(event.keyCode)) {
-          // console.log("you know a valid key is pressed");
           setTestInfo((preVal) => {
             return {
               ...preVal,
@@ -203,12 +181,10 @@ export default function TypeArea(props) {
     //CHECK IF THIS IS THE FIRST KEY PRESSED. IF YES START THE TIMER.
     if(testInfo.totalKeysPressed===1)
     {
-      // console.log("inside KeyDownHandler for first time")
       startTimer();
     }
     
   }
-//style.TypeArea+" "+
   return (
     <>
       {isOver && <Modal tryAgain={tryAgain} wpmArray={testInfo.wpmArray} rawArray={testInfo.rawArray} accuracy={testInfo.accuracy} wpm={testInfo.WPM}/>}
