@@ -3,7 +3,7 @@
 }
 .TypeArea{
     width:96%;
-    margin-top: 2%;
+    margin-top: 5vh;
     color: black;
     outline: none;
     border-radius: 12px;
@@ -30,4 +30,11 @@ p span{
     p span{
         margin-top: 5px;
     }
+    .TypeArea{
+        width : 100%;
+        max-width : 100%;
+        margin-top: 5vh;
+    }
 }
+
+

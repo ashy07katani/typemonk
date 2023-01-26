@@ -1,0 +1,40 @@
+.TypeTimeSetter{
+    background-color: #2c2e31;
+    box-shadow: none;
+    display: flex;
+    width:30vw;
+    justify-content: space-between;
+    align-items: center;
+    color:gray;
+    margin-right: 2vw;
+    width: 52vw;
+    max-width: 30vw;
+    margin-bottom: 1vh;
+    padding: 4%;
+    font-size: 100%;
+    transform: translateY(-7vh);
+}
+
+
+.duration:hover{
+    cursor: pointer;
+    color: rgb(236, 226, 226);
+    transition:color 0.5s;
+    transform:translateY(0.5px);
+    transition-timing-function: ease-in-out ;
+}
+
+
+@media all and (max-width :600px)
+{
+    .TypeTimeSetter{
+        margin-left: 5vw;
+        width: 52vw;
+        max-width: 45vw;
+        margin-bottom: 5vh;
+        padding: 6%;
+        font-size: 100%;
+        transform: translateY(-7vh);
+    }
+    
+}

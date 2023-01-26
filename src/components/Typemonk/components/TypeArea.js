@@ -65,11 +65,6 @@ export default function TypeArea(props) {
   const startTimer = () => {
     const interval = setInterval(() => {
       setTestInfo((preVal) => {
-        console.log(
-          preVal.curWordIndex,
-          wordList.length,
-          preVal.curWordIndex === wordList.length
-        );
         if (
           MAX_TIME - preVal.timeElapsed == 0 ||
           preVal.curWordIndex === wordList.length
@@ -130,7 +125,6 @@ export default function TypeArea(props) {
   //THIS IS A KEY DOWN HANDLER
   const keyDownHandler = (event) => {
     let curLetter = "";
-    console.log("number of keys pressed", testInfo.totalKeysPressed);
     if (event.keyCode === 32) {
       if (matchFound(formedCurWord, wordList[wordIndex])) {
         setWrongClass("");
