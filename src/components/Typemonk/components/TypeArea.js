@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "../../UI/components/Modal";
 import style from "../css/TypeArea.module.css";
 export default function TypeArea(props) {
-  const MAX_TIME = 40;
+  const MAX_TIME = 130;
   const allowedKey = [
     32, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 65, 66, 67, 68,
     69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
@@ -11,20 +11,21 @@ export default function TypeArea(props) {
     214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 173,
   ];
   const wordList = props.wordList;
-  const [textAreaDisabled,setTextAreaDisabled]=useState(false);
-  const [isOver,setIsOver]=useState(false);
+  const [textAreaDisabled, setTextAreaDisabled] = useState(false);
+  const [isOver, setIsOver] = useState(false);
   const [wordIndex, setwordIndex] = useState(0);
   const [formedCurWord, setFormedCurWord] = useState("");
   const [totalKeysPressed, setTotalKeysPressed] = useState(0);
-  const [wrongClass,setWrongClass]= useState("")
+  const [wrongClass, setWrongClass] = useState("");
   const [testInfo, setTestInfo] = useState({
     timeElapsed: 0,
     paragraphFormed: "",
     totalKeysPressed: 0,
     WPM: 0,
     accuracy: 0,
-    wpmArray:[],
-    rawArray:[]
+    wpmArray: [],
+    rawArray: [],
+    curWordIndex: 0,
   });
 
   //FUNCTION TO CALCULATE WPM
@@ -35,7 +36,7 @@ export default function TypeArea(props) {
     return (correctKeyPressed / totalKeyPressed).toFixed(2) * 100;
   };
   const calculateWPM = (content, timeElapsed) => {
-    if (content.length === 0|| timeElapsed===0) {
+    if (content.length === 0 || timeElapsed === 0) {
       return 0;
     }
     let Total_Keys_Pressed = content.length;
@@ -44,42 +45,54 @@ export default function TypeArea(props) {
     let WPM = Math.ceil(Total_Number_of_Words / Time_Elapsed_in_Minutes);
     return WPM;
   };
-  const calculateRAW=(Total_Keys_Pressed,timeElapsed)=>
-  {
-    if(timeElapsed===0)
-    {
+  const calculateRAW = (Total_Keys_Pressed, timeElapsed) => {
+    if (timeElapsed === 0) {
       return 0;
     }
     let Total_Number_of_Words = Total_Keys_Pressed / 5;
     let Time_Elapsed_in_Minutes = timeElapsed / 60;
     let RAW = Math.ceil(Total_Number_of_Words / Time_Elapsed_in_Minutes);
     return RAW;
-  }
+  };
   const matchFound = (expected, original) => {
-    if(expected === original)
-      setFormedCurWord("");
-    else{
-        setWrongClass(style.wrong);
-      }
+    if (expected === original) setFormedCurWord("");
+    else {
+      setWrongClass(style.wrong);
+    }
     return expected === original;
   };
 
- const startTimer = ()=>{
-  const interval = setInterval(() => {
+  const startTimer = () => {
+    const interval = setInterval(() => {
       setTestInfo((preVal) => {
-        if (MAX_TIME - preVal.timeElapsed == 0) {
+        console.log(
+          preVal.curWordIndex,
+          wordList.length,
+          preVal.curWordIndex === wordList.length
+        );
+        if (
+          MAX_TIME - preVal.timeElapsed == 0 ||
+          preVal.curWordIndex === wordList.length
+        ) {
           setIsOver(true);
-          setTextAreaDisabled(true)
+          setTextAreaDisabled(true);
           setWrongClass("");
-          clearInterval(interval); return preVal;
+          clearInterval(interval);
+          return preVal;
           // return clearInterval(interval);
         }
         return {
           ...preVal,
           timeElapsed: preVal["timeElapsed"] + 1,
           WPM: calculateWPM(preVal.paragraphFormed, preVal.timeElapsed),
-          wpmArray: [...preVal["wpmArray"],calculateWPM(preVal.paragraphFormed, preVal.timeElapsed)],
-          rawArray:[...preVal["rawArray"],calculateRAW(preVal.totalKeysPressed,preVal.timeElapsed)],
+          wpmArray: [
+            ...preVal["wpmArray"],
+            calculateWPM(preVal.paragraphFormed, preVal.timeElapsed),
+          ],
+          rawArray: [
+            ...preVal["rawArray"],
+            calculateRAW(preVal.totalKeysPressed, preVal.timeElapsed),
+          ],
           accuracy: calculateAccuracy(
             preVal.totalKeysPressed,
             preVal.paragraphFormed.length
@@ -87,27 +100,27 @@ export default function TypeArea(props) {
         };
       });
     }, 1000);
- }
+  };
 
- const tryAgain=()=>
-    {
-        props.tryAgain()
-        setTestInfo(({
-          timeElapsed: 0,
-          paragraphFormed: "",
-          totalKeysPressed: 0,
-          WPM: 0,
-          accuracy: 0,
-          wpmArray:[],
-          rawArray:[]
-        }))
-        setWrongClass("")
-        setTextAreaDisabled(false);
-        setIsOver(false);
-        setwordIndex(0);
-        setFormedCurWord("");
-        setTotalKeysPressed(0);
-    }
+  const tryAgain = () => {
+    props.tryAgain();
+    setTestInfo({
+      timeElapsed: 0,
+      paragraphFormed: "",
+      totalKeysPressed: 0,
+      WPM: 0,
+      accuracy: 0,
+      wpmArray: [],
+      rawArray: [],
+      curWordIndex: 0,
+    });
+    setWrongClass("");
+    setTextAreaDisabled(false);
+    setIsOver(false);
+    setwordIndex(0);
+    setFormedCurWord("");
+    setTotalKeysPressed(0);
+  };
 
   //THIS IS A CHANGE HANDLER
   const changeHandler = (event) => {
@@ -117,16 +130,17 @@ export default function TypeArea(props) {
   //THIS IS A KEY DOWN HANDLER
   const keyDownHandler = (event) => {
     let curLetter = "";
-  
+    console.log("number of keys pressed", testInfo.totalKeysPressed);
     if (event.keyCode === 32) {
       if (matchFound(formedCurWord, wordList[wordIndex])) {
-        setWrongClass("")
+        setWrongClass("");
         curLetter = " ";
         props.incWordIndex();
         setTestInfo((preVal) => {
           return {
             ...preVal,
             totalKeysPressed: preVal["totalKeysPressed"] + 1,
+            curWordIndex: preVal["curWordIndex"] + 1,
           };
         });
         setwordIndex((preVal) => {
@@ -139,55 +153,57 @@ export default function TypeArea(props) {
           };
         });
       }
-    }
-    else if(event.keyCode === 8)
-    {
-        if(wrongClass!=="")
-        {
-          setWrongClass("")
-        }
-        setFormedCurWord((preVal) => {
-          return preVal.slice(0, -1);
-        });
-        setTestInfo((preVal) => {
-          return {
-            ...preVal,
-            paragraphFormed: preVal["paragraphFormed"].slice(0, -1),
-          };
-        });
-    }
-
-    else if (allowedKey.includes(event.keyCode)) {
-          setTestInfo((preVal) => {
-            return {
-              ...preVal,
-              totalKeysPressed: preVal["totalKeysPressed"] + 1,
-            };
-          });
-          setTotalKeysPressed((preVal) => {
-            return preVal + 1;
-          });
-          curLetter = event.key;
-          setFormedCurWord((preVal) => {
-            return preVal.concat(curLetter);
-          });
-          setTestInfo((preVal) => {
-            return {
-              ...preVal,
-              paragraphFormed: preVal["paragraphFormed"].concat(curLetter),
-            };
-          });
-    }
-    //CHECK IF THIS IS THE FIRST KEY PRESSED. IF YES START THE TIMER.
-    if(testInfo.totalKeysPressed===1)
-    {
-      startTimer();
+    } else if (event.keyCode === 8) {
+      if (wrongClass !== "") {
+        setWrongClass("");
+      }
+      setFormedCurWord((preVal) => {
+        return preVal.slice(0, -1);
+      });
+      setTestInfo((preVal) => {
+        return {
+          ...preVal,
+          paragraphFormed: preVal["paragraphFormed"].slice(0, -1),
+        };
+      });
+    } else if (allowedKey.includes(event.keyCode)) {
+      setTestInfo((preVal) => {
+        return {
+          ...preVal,
+          totalKeysPressed: preVal["totalKeysPressed"] + 1,
+        };
+      });
+      setTotalKeysPressed((preVal) => {
+        return preVal + 1;
+      });
+      curLetter = event.key;
+      setFormedCurWord((preVal) => {
+        return preVal.concat(curLetter);
+      });
+      setTestInfo((preVal) => {
+        return {
+          ...preVal,
+          paragraphFormed: preVal["paragraphFormed"].concat(curLetter),
+        };
+      });
+      //CHECK IF THIS IS THE FIRST KEY PRESSED. IF YES START THE TIMER.
+      if (testInfo.totalKeysPressed === 0) {
+         startTimer();
+      }
     }
     
-  }
+  };
   return (
     <>
-      {isOver && <Modal tryAgain={tryAgain} wpmArray={testInfo.wpmArray} rawArray={testInfo.rawArray} accuracy={testInfo.accuracy} wpm={testInfo.WPM}/>}
+      {isOver && (
+        <Modal
+          tryAgain={tryAgain}
+          wpmArray={testInfo.wpmArray}
+          rawArray={testInfo.rawArray}
+          accuracy={testInfo.accuracy}
+          wpm={testInfo.WPM}
+        />
+      )}
       <textarea
         name=""
         id=""
@@ -197,14 +213,16 @@ export default function TypeArea(props) {
         onKeyDown={keyDownHandler}
         value={formedCurWord}
         disabled={textAreaDisabled}
-        className={wrongClass+" "+ style.TypeArea}
+        className={wrongClass + " " + style.TypeArea}
       ></textarea>
       <p>
         <span>WPM: {testInfo ? testInfo.WPM : 0}</span>
         <span> </span>
         <span>Accuracy: {testInfo ? testInfo.accuracy : 0}</span>
         <span> </span>
-        <span>Time Elaspsed: {testInfo ? MAX_TIME - testInfo.timeElapsed : 0}</span>
+        <span>
+          Time Elaspsed: {testInfo ? MAX_TIME - testInfo.timeElapsed : 0}
+        </span>
       </p>
     </>
   );
