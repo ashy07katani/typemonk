@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.footer-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: -moz-fit-content;
+    height: fit-content;
+    font-size: 60%;
+    width: 100vw;
+}
+
+@media all and (max-width :600px)
+{
+    .footer-cont{
+        width : 100%;
+        max-width : 100%;
+        font-size: 60%;
+        margin-left: 20%;
+    }
+}
