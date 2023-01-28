@@ -108,6 +108,9 @@ export default function TypeArea(props) {
     }, 1000)
      )
   };
+  const stopTimer = ()=>{
+    return clearInterval(myInterval);
+  }
 
   const tryAgain = () => {
     console.log("Try again is called")
@@ -128,11 +131,12 @@ export default function TypeArea(props) {
     setwordIndex(0);
     setFormedCurWord("");
     setTotalKeysPressed(0);
+    stopTimer();
   };
 
   //this is a trail
   const tryAgainTA = ()=>{
-    tryAgain()
+    tryAgain();
   }
   resetTimer.startAgain = tryAgainTA
   console.log(resetTimer.startAgain)
