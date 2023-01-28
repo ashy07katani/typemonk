@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
 import Modal from "../../UI/components/Modal";
 import style from "../css/TypeArea.module.css";
+import typeContext from "../context/TypeContext";
 export default function TypeArea(props) {
-  const MAX_TIME = 130;
+  const MAX_TIME = 10;
   const allowedKey = [
     32, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 65, 66, 67, 68,
     69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
@@ -10,13 +12,18 @@ export default function TypeArea(props) {
     199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213,
     214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 173,
   ];
+  //this is a trial
+  let resetTimer = useContext(typeContext);
   const wordList = props.wordList;
+  // let interval = null
   const [textAreaDisabled, setTextAreaDisabled] = useState(false);
   const [isOver, setIsOver] = useState(false);
   const [wordIndex, setwordIndex] = useState(0);
   const [formedCurWord, setFormedCurWord] = useState("");
   const [totalKeysPressed, setTotalKeysPressed] = useState(0);
   const [wrongClass, setWrongClass] = useState("");
+  //this is a trail
+  const [myInterval,setMyInterval] = useState(null)
   const [testInfo, setTestInfo] = useState({
     timeElapsed: 0,
     paragraphFormed: "",
@@ -63,11 +70,12 @@ export default function TypeArea(props) {
   };
 
   const startTimer = () => {
-    const interval = setInterval(() => {
+    clearInterval(myInterval);
+     setMyInterval(setInterval(() => {
       setTestInfo((preVal) => {
-
+        console.log("total keys pressed",preVal.totalKeysPressed)
         //condition for timer change.
-
+        //clearInterval(interval);
         if (
           MAX_TIME - preVal.timeElapsed == 0 ||
           preVal.curWordIndex === wordList.length
@@ -75,7 +83,7 @@ export default function TypeArea(props) {
           setIsOver(true);
           setTextAreaDisabled(true);
           setWrongClass("");
-          clearInterval(interval);
+          clearInterval(myInterval);
           return preVal;
           // return clearInterval(interval);
         }
@@ -97,10 +105,12 @@ export default function TypeArea(props) {
           ),
         };
       });
-    }, 1000);
+    }, 1000)
+     )
   };
 
   const tryAgain = () => {
+    console.log("Try again is called")
     props.tryAgain();
     setTestInfo({
       timeElapsed: 0,
@@ -120,6 +130,13 @@ export default function TypeArea(props) {
     setTotalKeysPressed(0);
   };
 
+  //this is a trail
+  const tryAgainTA = ()=>{
+    tryAgain()
+  }
+  resetTimer.startAgain = tryAgainTA
+  console.log(resetTimer.startAgain)
+  // resetTimer.startAgain=tryAgain
   //THIS IS A CHANGE HANDLER
   const changeHandler = (event) => {
     console.log(event.target.value);

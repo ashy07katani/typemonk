@@ -38,7 +38,7 @@ export default function Modal(props) {
   const tryAgainHandler = () => {
     props.tryAgain();
   };
-  console.log("Inside Modal", props.wpmArray);
+  // console.log("Inside Modal", props.wpmArray);
   return (
     <>
       {/* <Backdrop />
