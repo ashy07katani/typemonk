@@ -13,7 +13,7 @@ function App() {
   const moveMouseHandler = () => {
     setIsMouseMove(true);
     clearTimeout(timeout);
-    setTimeOut(setTimeout(function(){setIsMouseMove(true)}, 3000));
+    setTimeOut(setTimeout(function(){setIsMouseMove(false)}, 4000));
   };
   //this is a trial
 
