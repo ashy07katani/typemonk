@@ -4,7 +4,7 @@ import TypeArea from "./TypeArea";
 import paraList from "./ParagraphList";
 import Card from "../../UI/components/Card";
 import style from "../css/TypeContainer.module.css"
-export default function TypeContainer() {
+export default function TypeContainer(props) {
   const MAX_TIME = 60;
   const index = Math.floor(Math.random() * (paraList.length + 1));
   const [paragraphToType,setParagraphToType] = useState(paraList[index]);
@@ -37,6 +37,7 @@ export default function TypeContainer() {
         wordChecker={wordChecker}
         incWordIndex={incWordIndex}
         tryAgain={tryAgain}
+        maxTime={props.maxTime}
       ></TypeArea>
     </Card>
   );

@@ -24,7 +24,13 @@
     transition-timing-function: ease-in-out ;
 }
 
-
+.active{
+    color:rgba(0, 251, 255, 0.438);
+    padding:3px;
+    font-size: 80%;
+    border-radius: 50%;
+    font-weight: bolder;
+}
 @media all and (max-width :600px)
 {
     .TypeTimeSetter{
