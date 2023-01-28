@@ -1,23 +1,19 @@
 import React from "react";
 import Card from "../../UI/components/Card";
 import style from "../css/TypeTimeSetter.module.css";
-export default function TypeTimeSetter() {
-  // const moveMouseHandler = ()=>{
-  //     console.log("mouse moved")
-  // }
-//   var timeout;
-//   document.onmousemove = function () {
-    
-//   };
+export default function TypeTimeSetter(props) {
 
+const timeArray = [15,30,60,120,300,600]
+  const onClickHandler = (event)=>{
+    props.timeSetterHandler(Number(event.target.textContent))
+  }
   return (
     <Card className={style.TypeTimeSetter}>
-      <div className={style.duration}>15</div>
-      <div className={style.duration}>30</div>
-      <div className={style.duration}>60</div>
-      <div className={style.duration}>120</div>
-      <div className={style.duration}>500</div>
-      <div className={style.duration}>600</div>
+      {
+      timeArray.map((element)=>{
+        return <div key={element} className={style.duration} onClick={onClickHandler}>{element}</div>
+      })
+    }
     </Card>
   );
 }

@@ -8,17 +8,21 @@ function App() {
   const [maxTime, setMaxTime] = useState(0);
   const [IsMouseMove, setIsMouseMove] = useState(true);
   const [timeout,setTimeOut] = useState(null)
+
   const moveMouseHandler = () => {
     setIsMouseMove(true);
     clearTimeout(timeout);
     setTimeOut(setTimeout(function(){setIsMouseMove(false)}, 3000));
   };
+  const timeSetterHandler=(timeValue)=>{
+    console.log("value in App for time is",typeContainerRef)
+  }
   return (
     <div className="AppContainer" onMouseMove={moveMouseHandler}>
       <div className="navbar-container">{IsMouseMove && <Navbar />}</div>
       <div className="mid">
-        <div className="timesetter-container">{IsMouseMove && <TypeTimeSetter/>}</div>
-        <TypeContainer />
+        <div className="timesetter-container">{IsMouseMove && <TypeTimeSetter timeSetterHandler={timeSetterHandler}/>}</div>
+        <TypeContainer/>
       </div>
       <div className="footer">
         {IsMouseMove && <Footer/>}

@@ -65,6 +65,9 @@ export default function TypeArea(props) {
   const startTimer = () => {
     const interval = setInterval(() => {
       setTestInfo((preVal) => {
+
+        //condition for timer change.
+
         if (
           MAX_TIME - preVal.timeElapsed == 0 ||
           preVal.curWordIndex === wordList.length
