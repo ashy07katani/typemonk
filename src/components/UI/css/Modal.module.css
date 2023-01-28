@@ -58,7 +58,7 @@ button{
 button :hover{
     cursor: pointer;
     border-radius : 50%;
-    background-color: rgba(0, 251, 255, 0.584);
+    background-color: rgba(0, 251, 255, 0.438);
     transition:background-color 1s;
     transform:translateY(0.5px);
     transition-timing-function: ease-in-out ;

@@ -4,7 +4,7 @@ import Modal from "../../UI/components/Modal";
 import style from "../css/TypeArea.module.css";
 import typeContext from "../context/TypeContext";
 export default function TypeArea(props) {
-  const MAX_TIME = 10;
+  const MAX_TIME = props.maxTime;
   const allowedKey = [
     32, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 65, 66, 67, 68,
     69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
