@@ -12,7 +12,7 @@ export default function TypeArea(props) {
     199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213,
     214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 173,
   ];
-  //this is a trial
+  
   let resetTimer = useContext(typeContext);
   const wordList = props.wordList;
   // let interval = null
@@ -73,9 +73,7 @@ export default function TypeArea(props) {
     clearInterval(myInterval);
      setMyInterval(setInterval(() => {
       setTestInfo((preVal) => {
-        console.log("total keys pressed",preVal.totalKeysPressed)
-        //condition for timer change.
-        //clearInterval(interval);
+
         if (
           MAX_TIME - preVal.timeElapsed == 0 ||
           preVal.curWordIndex === wordList.length
@@ -85,7 +83,6 @@ export default function TypeArea(props) {
           setWrongClass("");
           clearInterval(myInterval);
           return preVal;
-          // return clearInterval(interval);
         }
         return {
           ...preVal,
@@ -113,7 +110,7 @@ export default function TypeArea(props) {
   }
 
   const tryAgain = () => {
-    console.log("Try again is called")
+    
     props.tryAgain();
     setTestInfo({
       timeElapsed: 0,
@@ -134,16 +131,15 @@ export default function TypeArea(props) {
     stopTimer();
   };
 
-  //this is a trail
+ 
   const tryAgainTA = ()=>{
     tryAgain();
   }
   resetTimer.startAgain = tryAgainTA
-  console.log(resetTimer.startAgain)
-  // resetTimer.startAgain=tryAgain
+
   //THIS IS A CHANGE HANDLER
   const changeHandler = (event) => {
-    console.log(event.target.value);
+    
   };
 
   //THIS IS A KEY DOWN HANDLER
