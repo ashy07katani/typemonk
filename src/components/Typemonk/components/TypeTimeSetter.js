@@ -9,7 +9,8 @@ const [selected,setSelected] = useState(0);
 // console.log(contextVariable.startAgain)
 const timeArray = [15,30,60,120,300,600]
   const onClickHandler = (event,id)=>{
-    setSelected(id)
+    // setSelected(id)
+    props.selectHandler(id)
     console.log("The selected value is ",selected)
     contextVariable.startAgain()
     contextVariable.resetTimer(Number(event.target.textContent))
@@ -19,7 +20,7 @@ const timeArray = [15,30,60,120,300,600]
     <Card className={style.TypeTimeSetter}>
       {
       timeArray.map((element,idx)=>{
-        return <div key={element} className={style.duration+(selected === idx? " "+style.active : "")} onClick={(event)=>{onClickHandler(event,idx)}} >{element}</div>
+        return <div key={element} className={style.duration+(props.selectedIndex === idx? " "+style.active : "")} onClick={(event)=>{onClickHandler(event,idx)}} >{element}</div>
       })
     }
     </Card>
