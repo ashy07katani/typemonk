@@ -71,6 +71,7 @@ export default function TypeArea(props) {
 
   const startTimer = () => {
     clearInterval(myInterval);
+    props.isSpacePressed(false);
      setMyInterval(setInterval(() => {
       setTestInfo((preVal) => {
 
@@ -148,6 +149,7 @@ export default function TypeArea(props) {
     if (event.keyCode === 32) {
       if (matchFound(formedCurWord, wordList[wordIndex])) {
         setWrongClass("");
+        props.isSpacePressed(true)
         curLetter = " ";
         props.incWordIndex();
         setTestInfo((preVal) => {
@@ -168,6 +170,7 @@ export default function TypeArea(props) {
         });
       }
     } else if (event.keyCode === 8) {
+      props.isSpacePressed(false);
       if (wrongClass !== "") {
         setWrongClass("");
       }
@@ -181,6 +184,7 @@ export default function TypeArea(props) {
         };
       });
     } else if (allowedKey.includes(event.keyCode)) {
+      props.isSpacePressed(false);
       setTestInfo((preVal) => {
         return {
           ...preVal,

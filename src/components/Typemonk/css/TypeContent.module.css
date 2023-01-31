@@ -11,5 +11,35 @@
 }
 .TypeContent{
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.808);
-    text-align: left;
+    text-align: justify;
+    line-height: 1.2em;
 }
+#typeContent
+{
+    height: 15vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 5px;
+    position: relative;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    background-color: transparent;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
