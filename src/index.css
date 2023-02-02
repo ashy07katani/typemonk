@@ -8,7 +8,12 @@ body {
   background-color: #292828;
   color:white;
 }
+p{
+  display: flex;
+  text-align: center;
+  justify-content: center;
 
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

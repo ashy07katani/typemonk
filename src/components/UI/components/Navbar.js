@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import style from "../css/Navbar.module.css";
 import { ReactSVG } from "react-svg";
 import profileIcon from "../../../Images/profile.svg"
@@ -11,21 +12,21 @@ export default function Navbar() {
       <nav>
         <div className={style["left-menu-items"]}>
           <div className={style["logo"]}>
-          <ReactSVG src={keyBoardIcon} />
-            <h2>TypeMonk</h2>
+          <Link to="/"><ReactSVG src={keyBoardIcon} /></Link>
+            <h2><Link to="/" className={style["h2-link"]}>TypeMonk</Link></h2>
           </div>
           <ul>
             <li>
-              <div><ReactSVG src={keyBoardIcon} /></div>
+            <Link to="/">   <div><ReactSVG src={keyBoardIcon} /></div></Link>
             </li>
             <li>
-              <div><ReactSVG src={leaderBoardIcon} /></div>
+            <Link to="/leaderboard"> <div><ReactSVG src={leaderBoardIcon} /></div></Link>
             </li>
           </ul>
         </div>
         <div className={style["right-menu-items"]}>
-          <a><ReactSVG src={profileIcon} /></a>
-          <a><ReactSVG src={logout} /></a>
+          <Link to="/profile"><ReactSVG src={profileIcon} /></Link>
+          <Link to="/login"><ReactSVG src={logout} /></Link>
         </div>
       </nav>
     </div>
