@@ -1,4 +1,10 @@
 import { createContext, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from 'react-router-dom';
 import "./App.css";
 import TypeContainer from "./components/Typemonk/components/TypeContainer";
 import TypeTimeSetter from "./components/Typemonk/components/TypeTimeSetter";
