@@ -92,3 +92,11 @@ button svg{
         opacity: 1;
      }
 }
+
+@media all and (max-width :1020px)
+{
+    .modal{
+        transform: translateY(20%);
+    }
+    
+}
