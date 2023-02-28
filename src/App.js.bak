@@ -29,7 +29,7 @@ function App() {
   const [IsMouseMove, setIsMouseMove] = useState(true);
   const [timeout, setTimeOut] = useState(null);
   const [selected, setSelected] = useState(0);
-  const [user,setUser] = useState(cookieFetchedUsername)
+  const [user,setUser] = useState("")
   const moveMouseHandler = () => {
     setIsMouseMove(true);
     clearTimeout(timeout);

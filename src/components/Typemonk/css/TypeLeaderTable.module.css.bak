@@ -1,0 +1,23 @@
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 110%;
+	border : none;
+	margin-right:2rem;
+	margin-right:2rem;
+	overflow-y : scroll;
+  }
+  th, td {
+	text-align: right;
+	padding: 8px;
+	font-size:0.7rem;
+  }
+  
+  tr:nth-child(even){background-color: #363636cc}
+
+@media all and (max-width :350px)
+{
+	table{
+		transform: translateX(-4.7rem);
+	}
+}

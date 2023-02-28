@@ -48,23 +48,24 @@
     width: 10%;
     
 }
-button{
+.modal-button{
     background-color: transparent;
     border-radius : 50%;
     border: none;
     margin-left: 5%;
     padding:4px;
 }
-button :hover{
+.modal-button :hover{
     cursor: pointer;
     border-radius : 50%;
-    background-color: rgba(0, 251, 255, 0.438);
+    /* background-color: rgba(0, 251, 255, 0.438); */
+    background-color: rgba(0, 251, 255, 0.438); 
     transition:background-color 1s;
     transform:translateY(0.5px);
     transition-timing-function: ease-in-out ;
 }
 
-button svg{
+.modal-button svg{
     width: 5vw;
     height: 5vw;
 }

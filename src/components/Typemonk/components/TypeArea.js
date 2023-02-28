@@ -233,7 +233,7 @@ export default function TypeArea(props) {
         disabled={textAreaDisabled}
         className={wrongClass + " " + style.TypeArea}
       ></textarea>
-      <p>
+      <p className={style.currentstats}>
         <span>WPM: {testInfo ? testInfo.WPM : 0}</span>
         <span> </span>
         <span>Accuracy: {testInfo ? testInfo.accuracy : 0}</span>

@@ -27,7 +27,7 @@ const ModalOverlay = (props) => {
     </div>
     <div>
       <Card className={style["button-container"]}>
-        <button onClick={props.tryAgainHandler}>
+        <button className={style["modal-button"]}onClick={props.tryAgainHandler}>
           <ReactSVG src={restartButton} />
         </button>
       </Card>

@@ -1,6 +1,32 @@
 .Navbar{
 
 }
+a{
+	text-decoration:none;
+}
+a .username{
+	font-size: 0.65rem;
+    color:rgb(158, 157, 157);
+    -webkit-transition: color 300ms linear;
+    -ms-transition: color 300ms linear;
+    transition: color 300ms linear;
+}
+a .username:hover{
+	color:white;
+    cursor:pointer;
+    -webkit-transition: color 300ms linear;
+    -ms-transition: color 300ms linear;
+    transition: color 300ms linear;
+}
+.profile-container{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.userpresent{
+	height:1.7rem;
+	width:1.7rem;
+}
 nav{
     display:flex;
     justify-content: space-between;
@@ -38,9 +64,20 @@ li{
     width:3rem;
     height:3rem;
 }
-svg{
-    width:1.2rem;
-    height:1.2rem;
+.navicon{
+	color:white;
+    font-size:1.2rem;
+    margin-right:5px;
+    border-radius: 50%;
+    padding:1px;
+    padding: 5%;
+    -webkit-transition: color 500ms linear;
+    -ms-transition: color 500ms linear;
+    transition: color 500ms linear;
+}
+.svg{
+	color:white;
+    font-size:1.2rem;
     margin-right:5px;
     border-radius: 50%;
     padding:1px;
@@ -50,14 +87,14 @@ svg{
     transition: background-color 500ms linear;
 }
 svg:hover{
-    background-color: rgba(0, 251, 255, 0.438);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.457);
+    color: rgba(0, 251, 255, 0.438);
     transform:translateY(0.5px);
-    -webkit-transition: background-color 500ms linear;
-    -ms-transition: background-color 500ms linear;
-    transition: background-color 500ms linear;
+    -webkit-transition: color 500ms linear;
+    -ms-transition: color 500ms linear;
+    transition: color 500ms linear;
     cursor: pointer;
 }
+
 .h2-link{
     margin-left: 5px;
     text-decoration: none;
@@ -77,13 +114,17 @@ svg:hover{
 }
 @media all and (max-width :600px)
 {
-    svg{
-        width:1.7rem;
+    .navicon{
+        font-size:1.7rem;
         height:1.7rem;
     }
     .logo h2{
         display: none;
     }
+	.username
+	{
+		display:none;
+	}
 }
 @media all and (max-width :600px)
 {
@@ -95,4 +136,5 @@ svg:hover{
         margin-left: 15vw;
     }
 }
+
 

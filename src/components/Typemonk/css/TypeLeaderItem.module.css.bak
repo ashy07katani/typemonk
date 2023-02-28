@@ -1,0 +1,9 @@
+
+.test-details
+{
+	display:flex;
+	justify-content : space-between;
+}
+.test-details  span{
+	margin-left: 2%;
+}

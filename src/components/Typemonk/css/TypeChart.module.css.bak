@@ -1,0 +1,28 @@
+.TypeChart
+{
+    width:50vw;
+    height:25vw;
+}
+
+.BarChart{
+	
+	transform: translateX(15vw);
+	width:53vw;
+	}
+
+@media all and (max-width :80rem)
+{
+	.BarChart{
+	
+	transform: translateX(13.6vw);
+}
+}
+@media all and (max-width :60rem){
+	
+	.BarChart{
+	
+	transform: translateX(6.6vw);
+}
+}
+
+/*ransform: translateX(6.6vw);*/
