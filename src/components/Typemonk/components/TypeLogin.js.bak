@@ -11,16 +11,28 @@ const Login = (props) => {
   const navigate = useNavigate();
   const login = useGoogleLogin({
   onSuccess: (tokenResponse) => {
+	  console.log("google response",tokenResponse.access_token)
 	  try { 
-	  fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
+	  fetch("http://127.0.0.1:8000/api/signin/google",{
 		  headers:{
 			  "Authorization":`Bearer ${tokenResponse.access_token}`
 		  },
-		  method : 'GET'
-	  }).then((data)=>{
-		  console.log(data)
+		  method : 'POST'
+	  }).then((res)=>{
+		  return res.json()
 	  }
-	  )
+	  ).then((data)=>{
+		  console.log(JSON.stringify(data))
+        document.cookie=`access-token=${data.access_token};  SameSite=None; path='/';`;
+        document.cookie=`refresh-token=${data.refresh_token}; SameSite=None; path='/';`;
+		document.cookie=`username=${data.username}; SameSite=None; path='/';`;
+        if(data.access_token)
+        {
+          console.log("access token is not null")
+		  props.setCurUser(data.username)
+          navigate('/')
+        }
+	  })
 	  }
 	  catch (err){
 		  console.log("error occured",err)
@@ -74,7 +86,7 @@ const Login = (props) => {
             <span className={style["button-text"]}>Sign In</span>
         </button>
         <p className={style.orholder}>or</p>
-        <button className={style["button"]} onClick={() => login()}>
+        <button type="button" className={style["button"]} onClick={() => login()}>
             <i className="fa fa-google fa-1x"></i>
             <span className={style["button-text"]}>Google Sign In</span>
         </button>
@@ -168,3 +180,28 @@ export default function TypeLogin(props) {
     </div>
   );
 }
+
+/*
+
+useGoogleLogin({
+  onSuccess: (tokenResponse) => {
+	  console.log("google response",tokenResponse.access_token)
+	  try { 
+	  fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
+		  headers:{
+			  "Authorization":`Bearer ${tokenResponse.access_token}`
+		  },
+		  method : 'GET'
+	  }).then((res)=>{
+		  return res.json()
+	  }
+	  ).then((data)=>{
+		  console.log(data);
+	  })
+	  }
+	  catch (err){
+		  console.log("error occured",err)
+	  }
+	  }
+})
+*/
