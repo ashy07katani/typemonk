@@ -39,6 +39,9 @@ function App() {
       }, 5000)
     );
   };
+  const onLogoutClearUserName = ()=>{
+	  setUser("")
+  }
   //this is a trial
   const setCurUser = (username)=>{
 	  setUser(username)
@@ -52,7 +55,7 @@ function App() {
         value={{ startAgain: null, resetTimer: setMaxTime }}
       >
         <div className="AppContainer" onMouseMove={moveMouseHandler}>
-          <div className="navbar-container">{IsMouseMove && <Navbar user={user}  />}</div>
+          <div className="navbar-container">{IsMouseMove && <Navbar user={user}  onLogoutClearUserName={onLogoutClearUserName}/>}</div>
           <Routes>
             <Route
               exact

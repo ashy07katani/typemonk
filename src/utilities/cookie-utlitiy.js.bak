@@ -1,22 +1,27 @@
 const getCookie = (cookieName)=>{
 	let cook = decodeURIComponent(document.cookie)
-	console.log("cook:",cook)
+	
 	let ca = cook.split(";")
-	console.log("ca array:",ca)
+	
 	let fetchedCookie=""
-	console.log("cookie name ",cookieName);
+	
 	ca.forEach((item)=>{
 		console.log("cookie name ",cookieName,item);
 		if(item.indexOf(`${cookieName}=`)>=0)
-			{ console.log("cookie name ",cookieName);
+			{ 
 				fetchedCookie= item.slice(item.indexOf(`${cookieName}=`)+`${cookieName}=`.length)}
-		else
-		{
-			console.log("not a match",cookieName,item)
-		}
 	}
 	)
 	console.log("inside getcookie function",fetchedCookie)
 	return fetchedCookie
+}
+const export  expireCookie = () =>{
+	
+	
+	
+	document.cookie=`access-token=""; expires=Sun, 20 Aug 2000 12:00:00 UTC; SameSite=None; path='/';`;
+    document.cookie=`refresh-token=""; expires=Sun, 20 Aug 2000 12:00:00 UTC; SameSite=None; path='/';`;
+	document.cookie=`username=""; expires=Sun, 20 Aug 2000 12:00:00 UTC;SameSite=None; path='/';`;
+	
 }
 export default getCookie;

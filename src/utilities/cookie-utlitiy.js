@@ -15,4 +15,13 @@ const getCookie = (cookieName)=>{
 	console.log("inside getcookie function",fetchedCookie)
 	return fetchedCookie
 }
+ export const  expireCookie = () =>{
+	
+	
+	
+	document.cookie=`access-token=""; expires=Sun, 20 Aug 2000 12:00:00 UTC; SameSite=None; path='/';`;
+    document.cookie=`refresh-token=""; expires=Sun, 20 Aug 2000 12:00:00 UTC; SameSite=None; path='/';`;
+	document.cookie=`username=""; expires=Sun, 20 Aug 2000 12:00:00 UTC;SameSite=None; path='/';`;
+	
+}
 export default getCookie;
